@@ -1,5 +1,8 @@
 package com.app.paytm.commands;
 
+import com.app.paytm.controller.UserController;
+import com.app.paytm.repository.UserRepository;
+import com.app.paytm.services.UserService;
 import com.app.paytm.util.constants.CommandKeyWords;
 
 import java.util.List;
@@ -9,6 +12,14 @@ import java.util.List;
  * @project paytm_lld
  */
 public class RegisterUserCommand implements Command{
+    private UserController userController;
+
+    public RegisterUserCommand() {
+        UserRepository userRepository = new UserRepository();
+        UserService userService = new UserService(userRepository);
+        userController = new UserController(userService);
+    }
+
     @Override
     public boolean canExecute(String command) {
         List<String> input = List.of(command.split("\\s+"));
@@ -18,5 +29,7 @@ public class RegisterUserCommand implements Command{
     @Override
     public void execute(String command) {
         System.out.println("In Register User Command");
+        List<String> input = List.of(command.split("\\s+"));
+        userController.registerUser(input.get(1), input.get(2));
     }
 }
