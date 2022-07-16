@@ -17,6 +17,6 @@ public class RegisterUserCommand implements Command{
 
     @Override
     public void execute(String command) {
-
+        System.out.println("In Register User Command");
     }
 }
